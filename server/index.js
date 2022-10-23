@@ -12,7 +12,7 @@ const { getCompliment, getFortune, emailSubmit, updateSubs, deletesub } = requir
 
 
 app.delete("/api/sub", deletesub )
-app.put("/api/email/:email", updateSubs)
+app.put("/api/email/", updateSubs)
 app.post("/api/email", emailSubmit)
 app.get("/api/fortune", getFortune)
 app.get("/api/compliment", getCompliment);

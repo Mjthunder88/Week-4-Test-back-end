@@ -32,25 +32,36 @@ module.exports = {
             firstname: subsData.firstname,
             lastname: subsData.lastname,
         }    
-        subscribers = subscriber
+        subscribers.push(subscriber)
         // console.log(subscribers)
         res.status(200).send("Thank you for subscribing!")
         return
     },
     updateSubs: (req, res) => {
-        let oldUser = req.param
-        console.log(oldUser)
-        if (subscribers[i].email === oldUser.oldEmail) {
-            subscribers[i].email = oldUser.email
-            res.status(200).send('Your information has been updated!')
+        let userEmails = req.body
+        console.log(userEmails)
+        for (let i = 0; i < subscribers.length; i++) {
+
+            if (subscribers[i].email !== userEmails.oldEmail) {
+                res.status(200).send('User not found!')
+                return
+            } else if (subscribers[i].email === userEmails.oldEmail) {
+                subscribers[i].email = userEmails.newEmail
+                console.log(subscribers)
+                res.status(200).send('Your information has been updated!')
+                return
+            }
         }
 
     },
     deletesub: (req,res) => {
         let sub = req.param.email
-        if (subscribers[1] === sub.email) {
-            subscribers.splice(index, 1)
+       for (let i = 0; i < subscribers.length; i++) {
+        if (subscribers[i] === sub.email) {
+            subscribers.splice(i, 1)
         }
+       }
+       res.status(200).send("You have been unsubscribed!")
     }
 
 

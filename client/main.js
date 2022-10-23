@@ -32,8 +32,8 @@ const getFortune = () => {
     } )
 }
 
-function createObj () {
-
+function createObj (event) {
+    event.preventDefault()
     let bodyObj = {
         email: inputEmail.value,
         firstname: firstName.value,
@@ -41,6 +41,9 @@ function createObj () {
     }
     console.log(bodyObj)
     storeEmail(bodyObj)
+    inputEmail.value = ''
+    firstName.value = ''
+    lastName.value = ''
 }
 
 
@@ -57,17 +60,17 @@ const storeEmail = (body) => {
 }
 
 
-function updateInfo () {
-    let newObj = {
-        oldEmail: currentEmail.value,
-        email: updateEmail.value
+
+
+const updateEmailInfo = (event) => {
+    event.preventDefault()
+    let bodyObj = {
+        oldEmail:  currentEmail.value,
+        newEmail: updateEmail.value,
     }
-    updateEmail(newObj)
-}
-
-
-const updateEmailInfo = (param) => {
-    axios.put(`${baseUrl}email/`, param)
+    currentEmail.value = ''
+    updateEmail.value = ''
+    axios.put(`${baseUrl}email/`, bodyObj )
     .then((res) => {
         let updatedInfo = res.data
         alert(updatedInfo)
@@ -80,5 +83,5 @@ const updateEmailInfo = (param) => {
 complimentBtn.addEventListener('click', getCompliment)
 fortuneBtn.addEventListener('click', getFortune)
 form.addEventListener('submit',createObj)
-updateForm.addEventListener('submit', updateInfo)
+updateForm.addEventListener('submit', updateEmailInfo)
 // make sure it can access this function trhough the index.js 
