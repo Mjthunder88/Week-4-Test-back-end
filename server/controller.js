@@ -55,13 +55,19 @@ module.exports = {
 
     },
     deletesub: (req,res) => {
-        let sub = req.param.email
+        let sub = req.params.email
+        // String(sub)
+        // console.log(sub)
        for (let i = 0; i < subscribers.length; i++) {
-        if (subscribers[i] === sub.email) {
+        if (subscribers[i].email === sub) {
             subscribers.splice(i, 1)
+            // console.log(subscribers)
+            res.status(200).send("You have been unsubscribed!")
+            return
+        } else {
+            res.status(200).send('User not found!')
         }
        }
-       res.status(200).send("You have been unsubscribed!")
     }
 
 

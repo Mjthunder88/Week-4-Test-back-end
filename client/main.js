@@ -10,6 +10,10 @@ const updateForm = document.getElementById("update")
 const updateEmail = document.getElementById("new-email")
 const currentEmail = document.getElementById("current-email")
 
+const deleteForm = document.getElementById('delete')
+const deleteInput = document.getElementById('delete-email')
+const deleteBtn = document.getElementById('delete-btn')
+
 const baseUrl = "http://localhost:4000/api/"
 
 const getCompliment = () => {
@@ -59,9 +63,6 @@ const storeEmail = (body) => {
     })
 }
 
-
-
-
 const updateEmailInfo = (event) => {
     event.preventDefault()
     let bodyObj = {
@@ -80,8 +81,23 @@ const updateEmailInfo = (event) => {
     })
 }
 
+const unsubsribe = (event) => {
+    event.preventDefault()
+    let email = deleteInput.value
+    deleteInput.value = ''
+    axios.delete(`${baseUrl}delete/` + email)
+    .then((res) => {
+        let responseData = res.data
+        alert(responseData)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
 complimentBtn.addEventListener('click', getCompliment)
 fortuneBtn.addEventListener('click', getFortune)
 form.addEventListener('submit',createObj)
 updateForm.addEventListener('submit', updateEmailInfo)
+deleteForm.addEventListener('submit', unsubsribe)
 // make sure it can access this function trhough the index.js 
